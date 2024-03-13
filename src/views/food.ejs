@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="food-container">
+            <h2>Create a Food</h2>
+
+            <form action="/west/food" method="post" enctype="application/x-www-form-urlencoded">
+                <input name="food_name" type="text" placeholder="Enter Food name">
+                <input name="price" type="text" placeholder="Enter Food price">
+                <button type="submit">Add Food</button>
+            </form>
+            <div class="foods">
+                <% allFood.map(food => { %>
+                    <div class="food-item" data-food-id="<%= food.id %>">
+                        <div class="food-details">
+                            <p>Name: <%= food.food_name %></p>
+                        </div>
+                        <div class="food-details">
+                            <p>Price: <%= food.price %> $</p>
+                        </div>
+                        <div class="food-actions">
+                            <div>
+                                <button class="edit-button" data-food-id="<%= food.id %>">Edit</button>
+                                <button class="delete-button" data-food-id="<%= food.id %>">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.delete-button');
+            
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const foodId = this.getAttribute('data-food-id');
+                    fetch(`/west/food/${foodId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            const foodItem = document.querySelector(`.food-item[data-food-id="${foodId}"]`);
+                            foodItem.remove();
+                        } else {
+                            console.error('Error deleting food item');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            });
+
+            const editButtons = document.querySelectorAll('.edit-button');
+            
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const foodId = this.getAttribute('data-food-id');
+                    const foodItem = document.querySelector(`.food-item[data-food-id="${foodId}"]`);
+                    const foodName = foodItem.querySelector('.food-details:nth-child(1) p');
+                    const foodPrice = foodItem.querySelector('.food-details:nth-child(2) p');
+                    
+                    const newName = prompt("Enter new name for the food:", foodName.innerText);
+                    const newPrice = prompt("Enter new price for the food:", foodPrice.innerText);
+                    
+                    if (newName && newPrice) {
+                        const newData = {
+                            food_name: newName,
+                            price: newPrice
+                        };
+                        
+                        fetch(`/west/food/${foodId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(newData)
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                foodName.innerText = newName;
+                                foodPrice.innerText = newPrice + ' $';
+                            } else {
+                                console.error('Error updating food item');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
