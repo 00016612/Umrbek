@@ -1,60 +1,91 @@
-body{
-    background-color: #c3e0c4;
+/* General styles */
+
+body {
+    background-color: #f0f8ff; /* Change to a lighter shade of blue */
+    font-family: Arial, sans-serif; /* Use a common sans-serif font */
+    margin: 0;
+    padding: 0;
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #ffffff; /* Add a white background to the container */
+    border-radius: 10px; /* Add a subtle border radius */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
 }
+
+/* Food container styles */
 
 .food-container {
     margin-bottom: 20px;
 }
 
 .food-item {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
+    border: 1px solid #e0e0e0; /* Lighten the border color */
+    padding: 15px; /* Increase padding for better spacing */
+    margin-bottom: 15px; /* Adjust margin for better spacing */
+    border-radius: 5px; /* Add a subtle border radius */
 }
 
 .food-details {
-    margin-bottom: 5px;
+    margin-bottom: 10px; /* Adjust margin for better spacing */
 }
 
 .food-actions {
     margin-top: 10px;
 }
 
+/* Button styles */
+
 .edit-button,
 .delete-button {
-    padding: 5px 10px;
-    margin-right: 5px;
+    padding: 8px 16px; /* Increase padding for better clickability */
+    margin-right: 10px; /* Adjust margin for better spacing */
     cursor: pointer;
-    background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Add transition for smoother hover effect */
 }
 
-.edit-button:hover,
-.delete-button:hover {
+.edit-button {
+    background-color: #007bff;
+}
+.delete-button {
+    background-color: red;
+}
+
+.edit-button:hover {
     background-color: #0056b3;
 }
 
+.delete-button:hover {
+    background-color: rgb(154, 0, 0);
+}
+
+.foods {
+    margin-top: 10px;
+}
+/* Form styles */
+
 form input[type="text"] {
-    width: calc(100% - 80px);
-    padding: 5px;
-    margin-bottom: 10px;
+    width: calc(100% - 100px); /* Adjust input width for better alignment */
+    padding: 8px; /* Increase padding for better input appearance */
+    margin-bottom: 15px; /* Adjust margin for better spacing */
+    border: 1px solid #ccc; /* Add border for better input visibility */
+    border-radius: 3px; /* Add a subtle border radius */
 }
 
 form button[type="submit"] {
-    padding: 5px 10px;
+    padding: 8px 16px; /* Increase padding for better clickability */
     cursor: pointer;
     background-color: #28a745;
     color: #fff;
     border: none;
     border-radius: 3px;
+    transition: background-color 0.3s ease; /* Add transition for smoother hover effect */
 }
 
 form button[type="submit"]:hover {
